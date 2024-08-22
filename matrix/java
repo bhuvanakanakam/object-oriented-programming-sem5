@@ -1,0 +1,157 @@
+/*  Bhuvana Kanakam
+    SE21UCSE035 - Lab10
+*/
+
+import java.util.Scanner;
+public class MatrixOperations {
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.print("Hello, Welcome! Lab10 Matrix Session\n ");
+
+        System.out.println("Matrix Operations Menu:");
+        System.out.println("1. Matrix Addition");
+        System.out.println("2. Matrix Subtraction");
+        System.out.println("3. Scalar Multiplication");
+        System.out.println("4. Matrix Multiplication");
+        System.out.println("5. Matrix Transposition");
+        System.out.println("6. Matrix Determinant");
+        System.out.println("7. Matrix Inversion");
+
+        System.out.print("Enter your choice (1-7): ");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                performMatrixAddition();
+                break;
+            case 2:
+                performMatrixSubtraction();
+                break;
+            case 3:
+                performScalarMultiplication();
+                break;
+            case 4:
+                performMatrixMultiplication();
+                break;
+            case 5:
+                performMatrixTransposition();
+                break;
+            case 6:
+                performMatrixDeterminant();
+                break;
+            case 7:
+                performMatrixInversion();
+                break;
+            default:
+                System.out.println("Invalid choice. Exiting program.");
+        }
+    }
+
+    private static void performMatrixAddition() {
+        int n = getUserMatrixSize();
+        int[][] matrixA = getUserMatrix("A", n);
+        int[][] matrixB = getUserMatrix("B", n);
+
+        int[][] result = addMatrices(matrixA, matrixB);
+
+        System.out.println("Result of Matrix Addition:");
+        printMatrix(result);
+    }
+
+    private static void performMatrixSubtraction() {
+        int n = getUserMatrixSize();
+        int[][] matrixA = getUserMatrix("A", n);
+        int[][] matrixB = getUserMatrix("B", n);
+
+        int[][] result = subtractMatrices(matrixA, matrixB);
+
+        System.out.println("Result of Matrix Subtraction:");
+        printMatrix(result);
+    }
+
+    private static void performScalarMultiplication() {
+        int n = getUserMatrixSize();
+        int[][] matrix = getUserMatrix("Matrix", n);
+        System.out.print("Enter the scalar: ");
+        int scalar = scanner.nextInt();
+
+        int[][] result = scalarMultiply(matrix, scalar);
+
+        System.out.println("Result of Scalar Multiplication:");
+        printMatrix(result);
+    }
+
+    private static void performMatrixMultiplication() {
+        int n = getUserMatrixSize();
+        int[][] matrixA = getUserMatrix("A", n);
+        int[][] matrixB = getUserMatrix("B", n);
+
+        int[][] result = multiplyMatrices(matrixA, matrixB);
+
+        System.out.println("Result of Matrix Multiplication:");
+        printMatrix(result);
+    }
+
+    private static void performMatrixTransposition() {
+        int n = getUserMatrixSize();
+        int[][] matrix = getUserMatrix("Matrix", n);
+
+        int[][] result = transposeMatrix(matrix);
+
+        System.out.println("Result of Matrix Transposition:");
+        printMatrix(result);
+    }
+
+    private static void performMatrixDeterminant() {
+        int n = getUserMatrixSize();
+        int[][] matrix = getUserMatrix("Matrix", n);
+
+        int determinant = determinant(matrix);
+
+        System.out.println("Determinant of the Matrix: " + determinant);
+    }
+
+    private static void performMatrixInversion() {
+        int n = getUserMatrixSize();
+        int[][] matrix = getUserMatrix("Matrix", n);
+
+        int[][] result = invertMatrix(matrix);
+
+        if (result != null) {
+            System.out.println("Result of Matrix Inversion:");
+            printMatrix(result);
+        } else {
+            System.out.println("Matrix is not invertible.");
+        }
+    }
+
+    private static int getUserMatrixSize() {
+        System.out.print("Enter the size of the square matrix, tell the number n for nXn matrix: ");
+        return scanner.nextInt();
+    }
+
+    private static int[][] getUserMatrix(String matrixName, int size) {
+        System.out.println("Enter the elements for Matrix " + matrixName + ":");
+        int[][] matrix = new int[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                System.out.print("Enter element at position (" + (i + 1) + ", " + (j + 1) + "): ");
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+        return matrix;
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
